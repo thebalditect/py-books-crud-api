@@ -1,0 +1,31 @@
+[project]
+name = "books_crud_api"
+version = "0.1.0"
+description = ""
+packages=[{include="books_crud_api", from="src"}]
+authors = [
+    {name = "Mandar Dharmadhikari",email = "codidharma@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi (>=0.119.0,<0.120.0)",
+    "uvicorn (>=0.37.0,<0.38.0)",
+    "sqlalchemy (>=2.0.44,<3.0.0)",
+    "alembic (>=1.17.0,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "mypy (>=1.18.2,<2.0.0)",
+    "pytest (>=8.4.2,<9.0.0)",
+    "coverage (>=7.11.0,<8.0.0)",
+    "ruff (>=0.14.1,<0.15.0)",
+    "pytest-asyncio (>=1.2.0,<2.0.0)"
+]
