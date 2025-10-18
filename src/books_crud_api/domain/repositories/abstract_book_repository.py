@@ -10,7 +10,7 @@ class AbstractBookRepository(ABC):
         pass
 
     @abstractmethod
-    async def get_by_id(self, id: int) -> Book:
+    async def get_by_id(self, id: int) -> Book | None:
         pass
 
     @abstractmethod

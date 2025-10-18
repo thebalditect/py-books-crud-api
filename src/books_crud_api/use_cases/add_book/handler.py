@@ -12,6 +12,7 @@ class AddBookCommandHandler:
 
     async def handle(self, command: AddBookCommand) -> None:
         book = Book(
+            id=None,
             title=command.title,
             author=command.author,
             published_year=command.published_year,
