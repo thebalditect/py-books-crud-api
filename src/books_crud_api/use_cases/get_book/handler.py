@@ -1,3 +1,4 @@
+from books_crud_api.domain.entities.common.result import Result
 from books_crud_api.domain.repositories.abstract_book_repository import (
     AbstractBookRepository,
 )
@@ -9,13 +10,14 @@ class GetBookQueryHandler:
     def __init__(self, repository: AbstractBookRepository) -> None:
         self.repository = repository
 
-    async def handle(self, id: int) -> GetBookQueryResponse | None:
+    async def handle(self, id: int) -> Result[GetBookQueryResponse]:
 
-        book = await self.repository.get_by_id(id=id)
+        result = await self.repository.get_by_id(id=id)
 
-        if book is None:
-            return None
+        if result.is_failure:
+            return Result[GetBookQueryResponse].failure(result.errors)
 
+        book = result.value
         query_response = GetBookQueryResponse(
             id=book.id,
             title=book.title,
@@ -23,4 +25,4 @@ class GetBookQueryHandler:
             published_year=book.published_year,
             created_on=book.created_on,
         )
-        return query_response
+        return Result[GetBookQueryResponse].success(query_response)

@@ -1,4 +1,5 @@
 from books_crud_api.domain.entities.book import Book
+from books_crud_api.domain.entities.common.result import Result
 from books_crud_api.domain.repositories.abstract_book_repository import (
     AbstractBookRepository,
 )
@@ -10,7 +11,7 @@ class AddBookCommandHandler:
     def __init__(self, repository: AbstractBookRepository) -> None:
         self.repository = repository
 
-    async def handle(self, command: AddBookCommand) -> None:
+    async def handle(self, command: AddBookCommand) -> Result[None]:
         book = Book(
             id=None,
             title=command.title,
@@ -18,4 +19,5 @@ class AddBookCommandHandler:
             published_year=command.published_year,
             created_on=None,
         )
-        await self.repository.add(book=book)
+        result = await self.repository.add(book=book)
+        return result
